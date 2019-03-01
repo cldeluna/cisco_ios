@@ -27,6 +27,7 @@
 #
 # To display the output variable run the playbook with a single v
 # ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass -v
+# Cisco123
 ###############################################################################
 
 - hosts: lab
@@ -39,7 +40,7 @@
     - name: Get WLC Show Command List
       include_vars: ./group_vars/ios_cmdlist.yml
     - name: Execute Show Commands on Cisco IOS Devices
-      aireos_command:
+      ios_command:
         username: "{{ v_username }}"
         password: "{{ v_password }}"
         commands:
