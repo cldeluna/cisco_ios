@@ -50,12 +50,11 @@
       include_vars: ./group_vars/ios_cmdlist.yml
     - name: Execute Show Commands on Cisco IOS Devices
       ios_command:
-        commands: "{{ item }}"
-        provider: "{{ cli }}"
-
-      register: output
+        commands: "{{ item }} "
+        provider: "{{ cli }} "
       with_items:
           - "{{ ios_show_commands }}"
+      register: output
       ignore_errors: yes
 
     - name: Debug with -v to show output contents only when debugging
