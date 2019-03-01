@@ -35,12 +35,12 @@
   gather_facts: False
 
   vars:
-  cli:
-      host: "{{ inventory_hostname }}"
-      username: "{{ v_username }}"
-      password: "{{ v_password }}"
-      authorize: yes
-      auth_pass: "{{ v_password }}"
+    cli:
+        host: "{{ inventory_hostname }}"
+        username: "{{ v_username }}"
+        password: "{{ v_password }}"
+        authorize: yes
+        auth_pass: "{{ v_password }}"
 
   tasks:
     - name: Get Vault Variables
