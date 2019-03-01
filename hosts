@@ -5,7 +5,7 @@ localhost ansible_connection=local
 ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com ansible_port=8181 username=root password=D_Vay!_10&
 
 [lab]
-weddell-sw02 ansible_host=10.1.10.40 username=cisco password=cisco
+weddell-sw02.uwaco.com ansible_host=10.1.10.40 username=cisco password=cisco
 
 
 #CSR1000V Host : ios-xe-mgmt.cisco.com
