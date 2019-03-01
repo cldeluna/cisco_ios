@@ -31,7 +31,8 @@
 ###############################################################################
 
 - hosts: lab
-  connection: local
+  connection: network_cli
+  become: yes
   gather_facts: False
 
   vars:
