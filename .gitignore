@@ -7,11 +7,10 @@ __pycache__/
 
 # Temp and Test directories and files
 test*
-temp*
 tmp*
 test/
 temp/
-tmp
+tmp/
 
 # OS temp files
 .DS_Store

@@ -74,7 +74,7 @@
 
     - name: Generate Device Show Command File(s)
       template: src=./templates/show-commands-template.j2
-                  dest=./{{ inventory_hostname }}.cfg
+                  dest=./logs/{{ inventory_hostname }}.cfg
 
       with_items:
         - "{{ output }}"
