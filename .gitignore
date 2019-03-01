@@ -11,6 +11,9 @@ tmp*
 test/
 temp/
 tmp/
+*.txt
+*.cfg
+*.output
 
 # OS temp files
 .DS_Store
