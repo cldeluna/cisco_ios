@@ -63,3 +63,10 @@
         verbosity: 1
 
     - local_action: copy content="{{ output | to_nice_json }}" dest="./logs/{{ inventory_hostname }}.json"
+
+    - name: Generate Device Show Command File(s)
+      template: src=./templates/show-commands-template.j2
+                  dest=./logs/{{ inventory_hostname }}.show-commands.txt
+
+      with_items:
+        - "{{ output }}"
