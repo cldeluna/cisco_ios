@@ -34,6 +34,14 @@
   connection: local
   gather_facts: False
 
+  vars:
+  cli:
+      host: "{{ inventory_hostname }}"
+      username: "{{ v_username }}"
+      password: "{{ v_password }}"
+      authorize: yes
+      auth_pass: "{{ v_password }}"
+
   tasks:
     - name: Get Vault Variables
       include_vars: ./group_vars/creds.yml
@@ -41,8 +49,7 @@
       include_vars: ./group_vars/ios_cmdlist.yml
     - name: Execute Show Commands on Cisco IOS Devices
       ios_command:
-        username: "{{ v_username }}"
-        password: "{{ v_password }}"
+        provider: "{{ cli }}"
         commands:
           - "{{ item }}"
       register: output
