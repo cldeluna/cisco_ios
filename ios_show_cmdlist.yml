@@ -1,11 +1,11 @@
 ---
 ###############################################################################
-# This playbook utilizes the aireos_command ansible module to execute a set of
-# show commands from a varialbe file in group_vars against the cisco wireless
-# controllers defined in the [cisco_wlc] group within the hosts file.
+# This playbook utilizes the ios_command ansible module to execute a set of
+# show commands from a varialbe file in group_vars against the cisco devices
+# defined in the [lab] group within the hosts file.
 # The command executes a list of show commands
 # using with_items and saves the result of each command into the output variable.
-# The show commands are in a list variable in group_vars/wlc_cmdlist.yml.  This
+# The show commands are in a list variable in group_vars/ios_cmdlist.yml.  This
 # facilitates changing out the show commands without having to edit the playbook
 # itself and provides a more modular approach.
 #
@@ -14,18 +14,19 @@
 # element in a list by number, the exact data can be reference by a key in a
 # dictionary.
 #
-# The with_items construc also renders the display a bit more descriptive.
+# The with_items construct also renders the display a bit more descriptive.
 #
-# The output variable is then displayed as part of the playbook run only if
+# The output variable is then displayed as part of the playbook run only if -v
+# is used (1 v) - give me a single ping Vasili, one ping only please
 #
 # The contents of the output variable are then saved using a Jinja filter that
 # renders the output as "pretty" JSON
 #
 # EXECUTION:
-# ansible-playbook -i hosts wlc_show_cmdlist.yml --ask-vault-pass
+# ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass
 #
 # To display the output variable run the playbook with a single v
-# ansible-playbook -i hosts wlc_show_cmdlist.yml --ask-vault-pass -v
+# ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass -v
 ###############################################################################
 
 - hosts: lab
