@@ -36,8 +36,8 @@
     - name: Get Vault Variables
       include_vars: ./group_vars/creds.yml
     - name: Get WLC Show Command List
-      include_vars: ./group_vars/wlc_cmdlist.yml
-    - name: Execute Show Commands on WLCs
+      include_vars: ./group_vars/ios_cmdlist.yml
+    - name: Execute Show Commands on Cisco IOS Devices
       aireos_command:
         username: "{{ v_username }}"
         password: "{{ v_password }}"
@@ -45,7 +45,7 @@
           - "{{ item }}"
       register: output
       with_items:
-          - "{{ wlc_show_commands }}"
+          - "{{ ios_show_commands }}"
       ignore_errors: yes
 
     - name: Debug with -v to show output contents only when debugging

@@ -1,4 +1,4 @@
-wlc_show_commands:
+ios_show_commands:
 # Original Show Command List
   - show run
   - show version
