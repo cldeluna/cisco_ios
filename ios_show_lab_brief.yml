@@ -15,6 +15,7 @@
 # The final play uses the templates module to save the show command output in the
 # more traditional text based output.
 #
+# This version only includes show commands that will likely work.
 #
 # EXECUTION:
 # ansible-playbook -i hosts ios_show_lab_brief.yml

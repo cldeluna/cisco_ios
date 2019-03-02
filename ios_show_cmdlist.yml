@@ -30,7 +30,7 @@
 # Cisco123
 ###############################################################################
 
-- hosts: lab
+- hosts: cisco_xe
   connection: local
   become: yes
   gather_facts: False
