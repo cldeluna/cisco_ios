@@ -1,0 +1,59 @@
+---
+###############################################################################
+# This playbook utilizes the ios_command ansible module to execute a set of
+# show commands against the cisco ios devices defined in the [cisco_xe]
+# group within the hosts file.   The command executes a list of show commands
+# and saves the result of each command into the output variable.
+#
+# The output variable is then displayed as part of the playbook run
+#
+# The contents of the output variable are then saved using two different methods.
+# device-output.txt has the raw output format which is a JSON data structure
+# device.cfg saves the results of the first command sent which in this case
+# is the show run command (hence the .cfg file type)
+#
+# The final play uses the templates module to save the show command output in the
+# more traditional text based output.
+#
+#
+# EXECUTION:
+# ansible-playbook -i hosts ios_show_lab_brief.yml
+###############################################################################
+
+- hosts: cisco_xe
+  connection: local
+  gather_facts: False
+  ignore_errors: yes
+
+  vars:
+    cli:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        timeout: 30
+
+  tasks:
+    - name: Iterate over show commands
+      ios_command:
+        commands: "{{ item }}"
+        provider: "{{ cli }}"
+
+      with_items:
+      - "show run"
+      - "show version"
+      - "show inventory"
+      - "show ip int br"
+      - "show ip route"
+
+      register: output
+
+    - debug: var=output
+
+    - local_action: copy content="{{ output.results }}" dest="./logs/{{ inventory_hostname }}-raw-output.txt"
+    - local_action: copy content="{{ output.results.0.stdout.0 }}" dest="./logs/{{ inventory_hostname }}-config.txt"
+
+    - name: Generate Device Show Command File(s)
+      template: src=./templates/show-commands-template.j2
+                  dest=./logs/{{ inventory_hostname }}-readable-show-output.txt
+      with_items:
+        - "{{ output }}"
