@@ -8,7 +8,7 @@
 # The output variable is then displayed as part of the playbook run
 #
 # The contents of the output variable are then saved using two different methods.
-# device.output has the raw output format which is a JSON data structure
+# device-output.txt has the raw output format which is a JSON data structure
 # device.cfg saves the results of the first command sent which in this case
 # is the show run command (hence the .cfg file type)
 #
@@ -26,6 +26,7 @@
         host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        timeout: 30
 
   tasks:
     - name: Iterate over show commands
@@ -35,7 +36,6 @@
 
       with_items:
       - "show run"
-      - "show version"
       - "show version"
       - "show inventory"
       - "show module"
@@ -53,7 +53,7 @@
       - "show env all"
       - "show power inline"
       - "show swi neighbors"
-      - "show license right-to-use"
+      - "show license right-to-use"a
       - "dir"
       - "show ip int br"
       - "show ip route"
