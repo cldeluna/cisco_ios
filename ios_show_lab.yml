@@ -73,12 +73,11 @@
 
     - debug: var=output
 
-    - local_action: copy content="{{ output.results }}" dest="./logs/{{ inventory_hostname }}-output.txt"
-    - local_action: copy content="{{ output.results.0.stdout.0 }}" dest="./logs/{{ inventory_hostname }}.cfg"
+    - local_action: copy content="{{ output.results }}" dest="./logs/{{ inventory_hostname }}-raw-output.txt"
+    - local_action: copy content="{{ output.results.0.stdout.0 }}" dest="./logs/{{ inventory_hostname }}-config.txt"
 
     - name: Generate Device Show Command File(s)
       template: src=./templates/show-commands-template.j2
-                  dest=./logs/{{ inventory_hostname }}-show-output.txt
-
+                  dest=./logs/{{ inventory_hostname }}-readable-show-output.txt
       with_items:
         - "{{ output }}"
