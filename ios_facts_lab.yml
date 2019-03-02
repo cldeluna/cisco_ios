@@ -13,6 +13,7 @@
         host: "{{ inventory_hostname  }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        timeout: 30
 
   tasks:
     - name: Gather Facts with the facts module
