@@ -1,5 +1,6 @@
 ---
-- name: collect device facts and display OS version
+
+- name: Collect device facts with the ios_facts module and display selected values
   # hosts: "{{ inventory | default('all') }}"
   hosts: cisco_xe
   gather_facts: false
@@ -24,16 +25,3 @@
     - debug: var=facts_output.ansible_facts.ansible_net_version
     - debug: var=facts_output.ansible_facts.ansible_net_model
 
-    # - name: Set Facts
-    #   set_fact:
-    #     csv_line: "{{ csv_line }} + { {{ inventory_hostname }}: {{ facts_output.ansible_facts.ansible_net_hostname, facts_output.ansible_facts.ansible_net_version , facts_output.ansible_facts.ansible_net_model }} }\n"
-
-    # - debug: var=csv_line
-
-    - name: Set Facts
-      set_fact:
-        # all_facts: "{{ all_facts | default([]) | union([ { {{ inventory_hostname }} : {{ acts_output.ansible_facts.ansible_net_model }} \n }]) }}"
-        all_facts: "{{ all_facts + union([ { {{ inventory_hostname }} : '{{ facts_output.ansible_facts.ansible_net_model }} \n' }]) }}"
-
-    - name: write the inventory in into file
-      copy: content="{{ all_facts }}" dest="facts/{{ inventory_hostname }}.txt"
