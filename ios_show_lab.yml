@@ -12,6 +12,10 @@
 # device.cfg saves the results of the first command sent which in this case
 # is the show run command (hence the .cfg file type)
 #
+# The final play uses the templates module to save the show command output in the
+# more traditional text based output.
+#
+#
 # EXECUTION:
 # ansible-playbook -i hosts ios_show_lab.yml
 ###############################################################################
@@ -51,9 +55,9 @@
       - "show swi"
       - "show swi detail"
       - "show env all"
-      - "show power inline"
+      - "show power inline"
       - "show swi neighbors"
-      - "show license right-to-use"a
+      - "show license right-to-use"
       - "dir"
       - "show ip int br"
       - "show ip route"
@@ -74,7 +78,7 @@
 
     - name: Generate Device Show Command File(s)
       template: src=./templates/show-commands-template.j2
-                  dest=./logs/{{ inventory_hostname }}.cfg
+                  dest=./logs/{{ inventory_hostname }}-show-output.txt
 
       with_items:
         - "{{ output }}"
