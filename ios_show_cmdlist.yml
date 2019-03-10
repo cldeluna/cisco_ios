@@ -46,7 +46,7 @@
   tasks:
     - name: Get Vault Variables
       include_vars: ./group_vars/creds.yml
-    - name: Get WLC Show Command List
+    - name: Get Device Show Command List
       include_vars: ./group_vars/ios_cmdlist.yml
     - name: Execute Show Commands on Cisco IOS Devices
       ios_command:
