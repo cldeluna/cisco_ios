@@ -4,21 +4,16 @@
   # hosts: "{{ inventory | default('all') }}"
   hosts: nxos
   gather_facts: false
-  connection: local
   ignore_errors: yes
 
-  vars:
-    all_facts: []
-    cli:
-        host: "{{ inventory_hostname  }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        timeout: 30
 
   tasks:
-    - name: Gather Facts with the facts module
+    - name: Check Group Vars
+      debug:
+        msg: "connection type is {{ ansible_connection }} and os is {{ ansible_network_os}}"
+    - name: Gather Facts with the NXOS facts module
       nxos_facts:
-        provider: "{{ cli }}"
+      when: ansible_network_os == 'nxos'
 
       register: facts_output
 
