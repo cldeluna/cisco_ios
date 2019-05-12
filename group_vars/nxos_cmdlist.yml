@@ -1,0 +1,28 @@
+nxos_show_commands:
+# Original Show Command List
+  - show run
+  - show version
+  - show inventory
+  - show module
+  - show cdp nei
+  - show cdp nei det
+  - show vlan
+  - show span
+  - show int
+  - show int status
+  - show int trunk
+  - show int capabilities
+  - show port-channel sum
+  - show vpc
+  - show vpc consistency-parameters vlans
+  - show env all
+  - show license right-to-use
+  - dir
+  - show ip int br
+  - show ip route
+  - show ip route sum
+  - show ip ospf nei
+  - show ip bgp sum
+  - show ip arp
+  - show ip dhcp snooping
+  - show mac address-table

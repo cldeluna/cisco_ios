@@ -7,12 +7,22 @@ ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com ansible_port=8181 usern
 [lab]
 weddell-sw02.uwaco.com ansible_host=10.1.10.40 username=cisco password=cisco
 
+[nxos]
+sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181 username=admin password=Admin_1234!
 
-#CSR1000V Host : ios-xe-mgmt.cisco.com
+# CSR1000V Host : ios-xe-mgmt.cisco.com
+# SSH Port: 8181
+# NETCONF Port: 10000
+# RESTCONF Port : 9443 (HTTPS)
+# Credentials:
+# Username: root
+# Password: D_Vay!_10&
+
+#Nexus 9000v Host : sbx-nxos-mgmt.cisco.com
 #SSH Port: 8181
-#NETCONF Port: 10000
-#RESTCONF Port : 9443 (HTTPS)
-#Credentials:
-#Username: root
-#Password: D_Vay!_10&
- 
+# NETCONF Port: 10000
+# NXAPI Ports: 80 (HTTP) & 443 (HTTPS)
+# RESTCONF Port : 443 (HTTPS)
+# Credentials:
+# Username: admin
+# Password: Admin_1234!
