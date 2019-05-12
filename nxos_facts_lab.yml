@@ -11,8 +11,10 @@
     - name: Check Group Vars
       debug:
         msg: "connection type is {{ ansible_connection }} and os is {{ ansible_network_os}}"
+
     - name: Gather Facts with the NXOS facts module
       nxos_facts:
+        gather_subset: all
       when: ansible_network_os == 'nxos'
 
       register: facts_output
