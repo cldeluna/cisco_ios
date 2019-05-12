@@ -26,6 +26,6 @@
     - debug: var=facts_output.ansible_facts.ansible_net_version
     - debug: var=facts_output.ansible_facts.ansible_net_model
 
-   - debug:
-       msg: "Device with hostname {{ facts_output.ansible_facts.ansible_net_hostname }} is of model type
-       {{ facts_output.ansible_facts.ansible_net_model }} running software version {{ facts_output.ansible_facts.ansible_net_version }}"
+    - debug:
+        msg: "Device with hostname {{ facts_output.ansible_facts.ansible_net_hostname }} is of model type
+        {{ facts_output.ansible_facts.ansible_net_model }} running software version {{ facts_output.ansible_facts.ansible_net_version }}"
