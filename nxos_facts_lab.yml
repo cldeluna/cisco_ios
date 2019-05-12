@@ -1,0 +1,32 @@
+---
+
+- name: Collect device facts with the ios_facts module and display selected values
+  # hosts: "{{ inventory | default('all') }}"
+  hosts: nxos
+  gather_facts: false
+  connection: local
+  ignore_errors: yes
+
+  vars:
+    all_facts: []
+    cli:
+        host: "{{ inventory_hostname  }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        timeout: 30
+
+  tasks:
+    - name: Gather Facts with the facts module
+      nxos_facts:
+        provider: "{{ cli }}"
+
+      register: facts_output
+
+    - debug: var=facts_output.ansible_facts.ansible_net_hostname
+    - debug: var=facts_output.ansible_facts.ansible_net_version
+    - debug: var=facts_output.ansible_facts.ansible_net_model
+
+    - name: Display debug module msg with all variables of interest
+      debug:
+        msg: "Device with hostname {{ facts_output.ansible_facts.ansible_net_hostname }} is of model type
+        {{ facts_output.ansible_facts.ansible_net_model }} running software version {{ facts_output.ansible_facts.ansible_net_version }}"
