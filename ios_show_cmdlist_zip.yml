@@ -1,0 +1,91 @@
+---
+###############################################################################
+# This playbook utilizes the ios_command ansible module to execute a set of
+# show commands from a varialbe file in group_vars against the cisco devices
+# defined in the [lab] group within the hosts file.
+# The command executes a list of show commands
+# using with_items and saves the result of each command into the output variable.
+# The show commands are in a list variable in group_vars/ios_cmdlist.yml.  This
+# facilitates changing out the show commands without having to edit the playbook
+# itself and provides a more modular approach.
+#
+# The with_items construct results in a dictionary data structure that could be
+# manipulated more precisely in follow on actions.  Rather then reference an
+# element in a list by number, the exact data can be reference by a key in a
+# dictionary.
+#
+# The with_items construct also renders the display a bit more descriptive.
+#
+# The output variable is then displayed as part of the playbook run only if -v
+# is used (1 v) - give me a single ping Vasili, one ping only please
+#
+# The contents of the output variable are then saved using a Jinja filter that
+# renders the output as "pretty" JSON
+#
+# The output files are saved in a custom directory based on the group name (the first returned
+# if the device is a member of multiple groups and the current date.
+#
+# The directory is then compressed.
+#
+#
+# EXECUTION:
+# ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass
+#
+# To display the output variable run the playbook with a single v
+# ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass -v
+# Cisco123
+###############################################################################
+
+- hosts: cisco_xe
+  connection: local
+
+  vars:
+    cli:
+        host: "{{ inventory_hostname }}"
+        username: "{{ v_username }}"
+        password: "{{ v_password }}"
+        authorize: yes
+        auth_pass: "{{ v_password }}"
+        timeout: 30
+
+  tasks:
+    - name: Get Vault Variables
+      include_vars: ./group_vars/creds.yml
+    - name: Get Device Show Command List
+      include_vars: ./group_vars/ios_cmdlist.yml
+
+    - name: Execute Show Commands on Cisco IOS Devices
+      ios_command:
+        commands: "{{ item }} "
+        provider: "{{ cli }} "
+      with_items:
+          - "{{ ios_show_commands }}"
+      register: output
+      ignore_errors: yes
+
+    - name: Debug with -v to show output contents only when debugging
+      debug:
+        var: output
+        verbosity: 1
+
+    - name: Create Directory
+      file: 
+        path: ./logs_{{ group_names[0] }}_{{ ansible_date_time.date }}
+        state: directory
+    - debug:
+        var: group_names
+
+    - name: Generate Device Show Command File(s)
+      template: 
+        src=./templates/show-commands-template.j2
+        dest=./logs_{{ group_names[0] }}_{{ ansible_date_time.date }}/{{ inventory_hostname }}.show-commands.txt
+
+      with_items:
+        - "{{ output }}"
+  
+    - name: Archive log files for "{{ group_names }}"
+      archive:
+        path: ./logs_{{ group_names[0] }}_{{ ansible_date_time.date }}
+        dest: "./logs_{{ group_names[0] }}_{{ ansible_date_time.date }}.zip"
+        format: zip
+
