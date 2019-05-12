@@ -4,6 +4,7 @@
   # hosts: "{{ inventory | default('all') }}"
   hosts: nxos
   gather_facts: false
+  ansible_connection: network_cli
   ignore_errors: yes
 
 

@@ -33,7 +33,7 @@
 #
 # To display the output variable run the playbook with a single v
 # ansible-playbook -i hosts ios_show_cmdlist.yml --ask-vault-pass -v
-# Cisco123
+# Default repository vault password: Cisco123
 ###############################################################################
 
 - hosts: cisco_xe

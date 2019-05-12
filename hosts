@@ -13,7 +13,7 @@ sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181 u
 # CSR1000V Host : ios-xe-mgmt.cisco.com
 # SSH Port: 8181
 # NETCONF Port: 10000
-# RESTCONF Port : 9443 (HTTPS)
+# RESTCONF Port : 9443 (HTTPS)vi
 # Credentials:
 # Username: root
 # Password: D_Vay!_10&
