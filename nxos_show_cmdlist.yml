@@ -41,6 +41,7 @@
         username: "{{ sbx_nxos_username }}"
         password: "{{ sbx_nxos_password }}"
         authorize: yes
+        transport: cli
         auth_pass: "{{ sbx_nxos_password }}"
 
   tasks:
@@ -53,7 +54,7 @@
         commands: "{{ item }} "
         provider: "{{ cli }} "
       with_items:
-          - "{{ ios_show_commands }}"
+          - "{{ nxos_show_commands }}"
       register: output
       ignore_errors: yes
 

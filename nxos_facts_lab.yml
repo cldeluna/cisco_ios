@@ -3,9 +3,6 @@
 - name: Collect device facts with the ios_facts module and display selected values
   # hosts: "{{ inventory | default('all') }}"
   hosts: nxos
-  gather_facts: false
-  ansible_connection: network_cli
-  ignore_errors: yes
 
 
   tasks:
