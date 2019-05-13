@@ -2,6 +2,6 @@ ansible_connection: network_cli
 ansible_network_os: nxos
 ansible_user: admin
 ansible_ssh_pass: Admin_1234!
-ansible_become: yes
-ansible_become_method: enable
-ansible_become_pass: Admin_1234!
+#ansible_become: yes
+#ansible_become_method: enable
+#ansible_become_pass: Admin_1234!

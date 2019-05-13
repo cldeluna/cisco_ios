@@ -38,6 +38,7 @@
 
 - hosts: cisco_xe
   connection: local
+  gather_facts: yes
 
   vars:
     cli:
@@ -54,7 +55,7 @@
     - name: Get Device Show Command List
       include_vars: ./group_vars/ios_cmdlist.yml
 
-    - name: Execute Show Commands on Cisco IOS Devices
+    - name: Execute Show Commands on Cisco IOS Devicesask
       ios_command:
         commands: "{{ item }} "
         provider: "{{ cli }} "
