@@ -2,7 +2,7 @@
 
 - name: Collect device facts with the ios_facts module and display selected values
   # hosts: "{{ inventory | default('all') }}"
-  hosts: nxos
+  hosts: sbx_nxos
 
 #  vars:
 #    cli:

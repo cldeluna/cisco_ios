@@ -30,7 +30,7 @@
 # Cisco123
 ###############################################################################
 
-- hosts: nxos
+- hosts: sbx_nxos
   connection: local
   become: yes
   gather_facts: False
