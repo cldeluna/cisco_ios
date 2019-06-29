@@ -1,0 +1,43 @@
+---
+###############################################################################
+# This playbook utilizes the ios_command ansible module to execute a set of
+# show commands against the cisco ios devices defined in the [cisco_xe]
+# group within the hosts file.   The command executes a list of show commands
+# and saves the result of each command into the output variable.
+#
+# The output variable is then displayed as part of the playbook run
+#
+# The contents of the output variable are then saved using two different methods.
+# device-output.txt has the raw output format which is a JSON data structure
+# device.cfg saves the results of the first command sent which in this case
+# is the show run command (hence the .cfg file type)
+#
+# The final play uses the templates module to save the show command output in the
+# more traditional text based output.
+#
+# This playbook utilizes Ansible 2.5 syntax (removing provider)
+#
+#
+# EXECUTION:
+# ansible-playbook -i hosts ios_show_lab25.yml
+###############################################################################
+
+- hosts: cisco_xe
+  gather_facts: False
+  ignore_errors: yes
+
+  tasks:
+    - name: Iterate over show commands
+      ios_command:
+        timeout: 30
+        commands: "{{ item }}"
+
+      with_items:
+      - "show run"
+      - "show version"
+      - "show inventory"
+
+
+      register: output
+
+    - debug: var=output
