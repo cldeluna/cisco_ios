@@ -18,10 +18,10 @@ Device has the following Interfaces:
 {% for int, cfg_dict in output.ansible_facts.ansible_net_interfaces.items() %}
   - {{ int }}
 {% if cfg_dict.description %}
-    -- Description {{ cfg_dict.description }}
+    -- Description: {{ cfg_dict.description }}
 {% endif  %}
 {% if cfg_dict.ipv4 %}
-    -- IP Address {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}
+    -- IP Address: {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}
 {% endif  %}
 {% endfor %}
 
