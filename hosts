@@ -10,7 +10,7 @@ weddell-sw02.uwaco.com ansible_host=10.1.10.40 username=cisco password=cisco
 
 [sbx_nxos]
 # sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181 username=admin password=Admin_1234!
-sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181
+sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com
 
 
 [one_location:children]
@@ -41,6 +41,7 @@ ansible_network_os=nxos
 ansible_user=admin
 ansible_password=Admin_1234!
 ansible_command_timeout=30
+ansible_port=8181
 
 
 

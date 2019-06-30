@@ -1,0 +1,21 @@
+---
+
+- hosts: cisco_xe
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+  - name: Gather Facts
+    ios_facts:
+      gather_subset: all
+
+    register: output
+
+  - name: Display debug module msg with all variables of interest
+    debug:
+      var: output
+
+  - name: Generate Tenant Report
+    template:
+      src: ./templates/ios_summary_report_template.j2
+      dest: ./logs/{{ inventory_hostname }}-Summary-Report.txt
