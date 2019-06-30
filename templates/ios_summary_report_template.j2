@@ -21,7 +21,7 @@ Device has the following Interfaces:
     -- Description {{ cfg_dict.description }}
 {% endif  %}
 {% if cfg_dict.ipv4 %}
-    -- IP Address {{ cfg_dict.ipv4.address }}/{{ cfg_dict.ipv4.subnet }}
+    -- IP Address {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}
 {% endif  %}
 {% endfor %}
 
