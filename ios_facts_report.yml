@@ -15,7 +15,12 @@
     debug:
       var: output
 
-  - name: Generate Tenant Report
+  - name: Generate Tenant Report in Text Format
     template:
       src: ./templates/ios_summary_report_template.j2
       dest: ./logs/{{ inventory_hostname }}-Summary-Report.txt
+
+  - name: Generate Tenant Report in Markdown Format
+    template:
+      src: ./templates/ios_summary_report_md_template.j2
+      dest: ./logs/{{ inventory_hostname }}-Summary-Report.md

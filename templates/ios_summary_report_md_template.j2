@@ -1,0 +1,30 @@
+
+## Summary Report for device {{ inventory_hostname }}
+
+Device hostname is **{{ output.ansible_facts.ansible_net_hostname }}**
+
+Device model is *{{ output.ansible_facts.ansible_net_model }}*.
+
+Device serial number is *{{ output.ansible_facts.ansible_net_serialnum }}*.
+
+Device is running software version *{{ output.ansible_facts.ansible_net_version }}*.
+
+Device has the following IPs:
+{% for ip in output.ansible_facts.ansible_net_all_ipv4_addresses %}
+```
+  - {{ ip }}
+```  
+{% endfor %}
+
+Device has the following Interfaces:
+{% for int, cfg_dict in output.ansible_facts.ansible_net_interfaces.items() %}
+  - **{{ int }}**
+{% if cfg_dict.description %}
+    -- Description: {{ cfg_dict.description }}
+{% endif  %}
+{% if cfg_dict.ipv4 %}
+    -- IP Address: {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}
+{% endif  %}
+{% endfor %}
+
+#### End of Summary Report 
