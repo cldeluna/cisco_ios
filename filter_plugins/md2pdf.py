@@ -28,6 +28,9 @@ class FilterModule(object):
         a_new_variable = a_variable + ' CRAZY NEW FILTER'
         return a_new_variable
 
+    def b_filter(self, a_variable):
+        a_new_variable = a_variable + ' ANOTHER CRAZY NEW FILTER'
+        return a_new_variable
 
 def main():
     pass
