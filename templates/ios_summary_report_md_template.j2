@@ -16,15 +16,15 @@ Device has the following IPs:
 ```  
 {% endfor %}
 
-Device has the following Interfaces: <br>
+Device has the following Interfaces:
 
 {% for int, cfg_dict in output.ansible_facts.ansible_net_interfaces.items() %}
-  - **{{ int }}**<br>
+  - **{{ int }}**
 {% if cfg_dict.description %}
-    -- Description: {{ cfg_dict.description }}<br>
+    -- Description: {{ cfg_dict.description }}
 {% endif  %}
 {% if cfg_dict.ipv4 %}
-    -- IP Address: {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}<br>
+    -- IP Address: {{ cfg_dict.ipv4[0].address }}/{{ cfg_dict.ipv4[0].subnet }}
 {% endif  %}
 {% endfor %}
 <br>
