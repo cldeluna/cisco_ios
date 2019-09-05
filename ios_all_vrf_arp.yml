@@ -38,16 +38,16 @@
   vars:
     cli:
         host: "{{ inventory_hostname }}"
-        username: "{{ v_username }}"
-        password: "{{ v_password }}"
+        username: "{{ sbx_xe_username }}"
+        password: "{{ sbx_xe_password }}"
         authorize: yes
-        auth_pass: "{{ v_password }}"
+        auth_pass: "{{ sbx_xe_password }}"
 
   tasks:
     - name: Get Vault Variables
       include_vars: ./group_vars/creds.yml
 
-    - name: Execute Show Commands on Cisco IOS Devices
+    - name: List VRFs
       ios_command:
         commands: "{{ item }} "
         provider: "{{ cli }} "
