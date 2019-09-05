@@ -52,7 +52,7 @@
         commands: "{{ item }} "
         provider: "{{ cli }} "
       with_items:
-          - "show vrf all"
+          - "show vrf"
       register: output
       ignore_errors: yes
 
