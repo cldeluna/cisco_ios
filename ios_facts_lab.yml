@@ -11,8 +11,8 @@
     all_facts: []
     cli:
         host: "{{ inventory_hostname  }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
         timeout: 30
 
   tasks:
