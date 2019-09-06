@@ -22,6 +22,7 @@
 
       register: facts_output
 
+    - debug: var=facts_output
     - debug: var=facts_output.ansible_facts.ansible_net_hostname
     - debug: var=facts_output.ansible_facts.ansible_net_version
     - debug: var=facts_output.ansible_facts.ansible_net_model
