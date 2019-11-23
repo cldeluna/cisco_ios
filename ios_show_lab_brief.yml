@@ -21,7 +21,8 @@
 # ansible-playbook -i hosts ios_show_lab_brief.yml
 ###############################################################################
 
-- hosts: cisco_xe
+- name: Pull show commands form Cisco IOS_XE Always On Sandbox device
+  hosts: cisco_xe
   connection: local
   gather_facts: False
   ignore_errors: yes
