@@ -31,7 +31,7 @@
 
 # The commented lines show the pre Ansible 2.5 method of passing credentials to network modules using the "provider"
 # method.  In Ansible 2.5 the network_cli connection method was introduced in order to better align network
-# and server modules so they behaved in a more consistent manner.
+# and server modules so they behave in a more consistent manner.
 
 #  connection: local
 #  vars:
