@@ -26,19 +26,19 @@
   gather_facts: False
   ignore_errors: yes
 
-  vars:
-    cli:
-        host: "{{ inventory_hostname }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        port: "{{ ansible_port }}"
-        timeout: 30
+#  vars:
+#    cli:
+#        host: "{{ inventory_hostname }}"
+#        username: "{{ ansible_user }}"
+#        password: "{{ ansible_password }}"
+#        port: "{{ ansible_port }}"
+#        timeout: 30
 
   tasks:
     - name: Iterate over show commands
       ios_command:
         commands: "{{ item }}"
-        provider: "{{ cli }}"
+#        provider: "{{ cli }}"
 
       with_items:
       - "show run"
