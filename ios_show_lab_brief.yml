@@ -23,7 +23,7 @@
 
 - name: Pull show commands form Cisco IOS_XE Always On Sandbox device
   hosts: cisco_xe
-  connection: local
+#  connection: local
   gather_facts: False
   ignore_errors: yes
 
