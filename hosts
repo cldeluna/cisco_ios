@@ -3,7 +3,8 @@ localhost ansible_connection=local
 
 [cisco_xe]
 #ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com ansible_port=8181 username=root password=D_Vay!_10&
-ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com ansible_port=8181
+#ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com ansible_port=8181
+ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com
 
 [local_lab]
 weddell-sw02.uwaco.com ansible_host=10.1.10.40 username=cisco password=cisco
@@ -34,6 +35,7 @@ ansible_network_os=ios
 ansible_user=root
 ansible_password=D_Vay!_10&
 ansible_command_timeout=30
+ansible_port=8181
 
 
 [sbx_nxos:vars]
