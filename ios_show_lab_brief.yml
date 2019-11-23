@@ -2,7 +2,7 @@
 ###############################################################################
 # This playbook utilizes the ios_command ansible module to execute a set of
 # show commands against the cisco ios devices defined in the [cisco_xe]
-# group within the hosts file.   The command executes a list of show commands
+# group within the hosts file.   The command iterates over a list of show commands
 # and saves the result of each command into the output variable.
 #
 # The output variable is then displayed as part of the playbook run
@@ -15,6 +15,8 @@
 # The final play uses the templates module to save the show command output in the
 # more traditional text based output.
 #
+# The resulting output files are saved in the ./logs directory
+#
 # This version only includes show commands that will likely work.
 #
 # EXECUTION:
@@ -23,10 +25,15 @@
 
 - name: Pull show commands form Cisco IOS_XE Always On Sandbox device
   hosts: cisco_xe
-#  connection: local
+
   gather_facts: False
   ignore_errors: yes
 
+# The commented lines show the pre Ansible 2.5 method of passing credentials to network modules using the "provider"
+# method.  In Ansible 2.5 the network_cli connection method was introduced in order to better align network
+# and server modules so they behaved in a more consistent manner.
+
+#  connection: local
 #  vars:
 #    cli:
 #        host: "{{ inventory_hostname }}"
