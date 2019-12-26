@@ -1,0 +1,92 @@
+---
+###############################################################################
+# This playbook utilizes the Ansible network engine role and a number of other
+# modules.
+#
+# This playbook
+#   - executes a "show arp" command on the designated group
+#   - formats and saves the output to a text file
+#   - loads the properly formatted show command output
+#   - uses the network engine textfsm_parser to parse the output
+#   - and defines a list of vrf names for the device and outputs that list to
+#     stdout
+#
+# Ultimately that list will be used to get the ARP table from each VRf
+#
+#
+# EXECUTION:
+# ansible-playbook -i hosts get_vrfs.yml --ask-vault-pass
+#
+# To display the output variable run the playbook with a single v
+# ansible-playbook -i hosts get_vrfs.yml --ask-vault-pass -v
+#
+# Vault Password: Cisco123
+###############################################################################
+-
+- hosts: cisco_xe
+  gather_facts: False
+
+  # Creating the vrf_list variable and seeding it with default
+  vars:
+    vrf_list: ['default']
+
+  roles:
+    - ansible-network.network-engine
+
+  tasks:
+    - name: Get Vault Variables
+      include_vars: ./group_vars/creds.yml
+
+    - name: Exceute show vrf command
+      ios_command:
+        commands: "{{ item }} "
+      with_items:
+          - "show vrf"
+      register: output
+      ignore_errors: yes
+
+    - name: Debug with -v to show output contents only when debugging
+      debug:
+        var: output
+        verbosity: 1
+
+    - name: Show the vrf command output with stdout_lines
+      debug:
+        msg: "{{ output.results.0.stdout_lines.0 }}"
+
+    # Save show command output in a nicely formatted text file.
+    - name: Generate and Save Device Show Command File(s)
+      template: src=./templates/show-commands-template.j2
+                  dest=./logs/{{ inventory_hostname }}.show-commands.txt
+      with_items:
+        - "{{ output }}"
+
+    - name: Extract the formatted show vrf output from file for correct parsing via TextFSM
+      set_fact:
+        vrf_content: "{{ lookup('file', './logs/' + inventory_hostname + '.show-commands.txt') }}"
+
+
+    - name: Use Network Engine Role textfsm_parser to Parse VRF Output and store in variable vrf_facts
+      textfsm_parser:
+        file: './parsers/cisco_ios_show_vrf.template'
+        content: "{{ vrf_content }}"
+        name: vrf_facts
+
+    - name: Show contents of variable vrf_facts
+      debug:
+        var: vrf_facts
+
+    - name: Show VRF names only
+      debug:
+        msg: "{{ item['NAME'] }}"
+      with_items:
+        - "{{ vrf_facts }}"
+
+    - name: Append new VRFS to list of VRF names
+      set_fact:
+        vrf_list: "{{ vrf_list }} + ['{{ item['NAME'] }}' ]"
+      with_items:
+        - "{{ vrf_facts }}"
+
+    - name: Show Complete List of VRF Names
+      debug: var=vrf_list
