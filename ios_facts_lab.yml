@@ -1,27 +1,23 @@
 ---
 
 - name: Collect device facts with the ios_facts module and display selected values
-  # hosts: "{{ inventory | default('all') }}"
-  hosts: cisco_xe
+  hosts: "{{ inventory | default('cisco_xe') }}"
+  # hosts: cisco_xe
   gather_facts: false
   connection: local
   ignore_errors: yes
 
   vars:
     all_facts: []
-    cli:
-        host: "{{ inventory_hostname  }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        timeout: 30
+
 
   tasks:
     - name: Gather Facts with the facts module
       ios_facts:
-        provider: "{{ cli }}"
 
       register: facts_output
 
+    # Examples of Plucking out specific information
     - debug: var=facts_output
     - debug: var=facts_output.ansible_facts.ansible_net_hostname
     - debug: var=facts_output.ansible_facts.ansible_net_version
