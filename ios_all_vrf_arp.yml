@@ -57,7 +57,7 @@
       register: output
 
     - set_fact:
-        ip_arp_output: "{{ ip_arp_output }} + ['{{ output }}' ]"
+        ip_arp_output: "{{ output }}"
 
     - name: Exceute custom show ip arp vrf <vrf> command
       ios_command:
