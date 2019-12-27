@@ -59,9 +59,12 @@
 
     - debug: var=output
 
+    # Save the raw output which is an unformatted data structure
     - local_action: copy content="{{ output.results }}" dest="./logs/{{ inventory_hostname }}-raw-output.txt"
+    # Sae the configuration only in the commonly formatted file
     - local_action: copy content="{{ output.results.0.stdout.0 }}" dest="./logs/{{ inventory_hostname }}-config.txt"
 
+    # Run the output through a Jinja2 template to get all the show commands in their common format
     - name: Generate Device Show Command File(s)
       template: src=./templates/show-commands-template.j2
                   dest=./logs/{{ inventory_hostname }}-readable-show-output.txt
