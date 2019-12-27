@@ -30,42 +30,33 @@
 # Cisco123
 ###############################################################################
 
+- import_playbook: get_vrfs.yml
+
 - hosts: cisco_xe
   connection: local
   become: yes
   gather_facts: False
 
-  vars:
-    cli:
-        host: "{{ inventory_hostname }}"
-        username: "{{ sbx_xe_username }}"
-        password: "{{ sbx_xe_password }}"
-        authorize: yes
-        auth_pass: "{{ sbx_xe_password }}"
+  roles:
+    - ansible-network.network-engine
 
   tasks:
-    - name: Get Vault Variables
-      include_vars: ./group_vars/creds.yml
 
-    - name: List VRFs
+    - name: "Ansible | List all known variables and facts"
+      debug:
+        var: hostvars[inventory_hostname]
+        verbosity: 1
+
+    - name: List just the vrfs in the vrf_list variable from the get_vrfs playbook
+      debug: var=vrf_list
+
+    - name: Exceute custom show ip arp vrf <vrf> command
       ios_command:
-        commands: "{{ item }} "
-        provider: "{{ cli }} "
+        commands: " show ip arp vrf {{ item }} "
       with_items:
-          - "show vrf"
+        - "{{ vrf_list }}"
       register: output
       ignore_errors: yes
 
-    - name: Debug with -v to show output contents only when debugging
-      debug:
-        var: output
-        verbosity: 1
-
-    - local_action: copy content="{{ output | to_nice_json }}" dest="./logs/{{ inventory_hostname }}.json"
-
-    - name: Generate Device Show Command File(s)
-      template: src=./templates/show-commands-template.j2
-                  dest=./logs/{{ inventory_hostname }}.show-commands.txt
-
-      with_items:
-        - "{{ output }}"
+    - name: Display the output
+      debug: var=output
