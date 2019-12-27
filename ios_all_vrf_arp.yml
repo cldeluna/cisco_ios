@@ -54,21 +54,18 @@
     - name: Exceute show ip arp show command on default VRF
       ios_command:
         commands: " show ip arp"
-      register: output
-
-    - set_fact:
-        ip_arp_output: "{{ output }}"
+      register: output0
 
     - name: Exceute custom show ip arp vrf <vrf> command
       ios_command:
         commands: " show ip arp vrf {{ item }} "
       with_items:
         - "{{ vrf_list }}"
-      register: output
+      register: output1
       ignore_errors: yes
 
     - set_fact:
-        ip_arp_output: "{{ ip_arp_output }} + ['{{ output }}' ]"
+        ip_arp_output: "['{{ output0 }}'] + ['{{ output }}' ]"
 
     - name: Display the output
       debug:
