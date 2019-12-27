@@ -65,7 +65,7 @@
       ignore_errors: yes
 
     - set_fact:
-        ip_arp_output: "['{{ output0 }}'] + ['{{ output }}' ]"
+        ip_arp_output: "{{ output0 }} + {{ output }}"
 
     - name: Display the output
       debug:
