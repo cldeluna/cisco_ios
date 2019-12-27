@@ -35,11 +35,11 @@
 - hosts: cisco_xe
   gather_facts: False
 
-  roles:
-    - ansible-network.network-engine
-
   vars:
     ip_arp_output = []
+
+  roles:
+    - ansible-network.network-engine
 
   tasks:
 
