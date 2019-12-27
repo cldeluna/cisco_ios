@@ -33,12 +33,13 @@
 - import_playbook: get_vrfs.yml
 
 - hosts: cisco_xe
-  connection: local
-  become: yes
   gather_facts: False
 
   roles:
     - ansible-network.network-engine
+
+  vars:
+    ip_arp_output = []
 
   tasks:
 
@@ -50,6 +51,14 @@
     - name: List just the vrfs in the vrf_list variable from the get_vrfs playbook
       debug: var=vrf_list
 
+    - name: Exceute show ip arp show command on default VRF
+      ios_command:
+        commands: " show ip arp"
+      register: output
+
+    - set_fact:
+        ip_arp_output: "{{ ip_arp_output }} + ['{{ output }}' ]"
+
     - name: Exceute custom show ip arp vrf <vrf> command
       ios_command:
         commands: " show ip arp vrf {{ item }} "
@@ -58,5 +67,8 @@
       register: output
       ignore_errors: yes
 
+    - set_fact:
+        ip_arp_output: "{{ ip_arp_output }} + ['{{ output }}' ]"
+
     - name: Display the output
-      debug: var=output
+      debug: var=ip_arp_output
