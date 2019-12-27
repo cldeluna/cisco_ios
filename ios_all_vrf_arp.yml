@@ -72,5 +72,6 @@
 
     - name: Display the VRF output
       debug:
-        msg:
-          "{{ output1.results.0.stdout_lines }}"
+        msg:  "{{ item.stdout_lines }}"
+      with_items:
+        - "{{ output1.results.0 }}"
