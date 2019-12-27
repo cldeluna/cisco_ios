@@ -36,7 +36,7 @@
   gather_facts: False
 
   vars:
-    ip_arp_output = []
+    ip_arp_output:: []
 
   roles:
     - ansible-network.network-engine
