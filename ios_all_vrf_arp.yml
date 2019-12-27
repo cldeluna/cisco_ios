@@ -67,10 +67,10 @@
     - name: Display the DEFAULT output
       debug:
         msg:
-          "{{ output0 | to_json }}"
+          "{{ output0 }}"
 
 
     - name: Display the VRF output
       debug:
         msg:
-          "{{ output1 | to_json }}"
+          "{{ output1 }}"
