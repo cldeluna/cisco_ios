@@ -71,4 +71,6 @@
         ip_arp_output: "{{ ip_arp_output }} + ['{{ output }}' ]"
 
     - name: Display the output
-      debug: var=ip_arp_output
+      debug:
+        msg:
+          "{{ ip_arp_output | to_json }}"
