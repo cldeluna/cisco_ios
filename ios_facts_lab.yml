@@ -7,14 +7,9 @@
   connection: local
   ignore_errors: yes
 
-  vars:
-    all_facts: []
-
-
   tasks:
     - name: Gather Facts with the facts module
       ios_facts:
-
       register: facts_output
 
     # Examples of Plucking out specific information
