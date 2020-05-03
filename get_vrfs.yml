@@ -68,7 +68,7 @@
 
     - name: Use Network Engine Role textfsm_parser to Parse VRF Output and store in variable vrf_facts
       textfsm_parser:
-        file: './parsers/cisco_ios_show_vrf.template'
+        file: './ntc-templates/templates/cisco_ios_show_vrf.textfsm'
         content: "{{ vrf_content }}"
         name: vrf_facts
 
