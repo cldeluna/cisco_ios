@@ -10,5 +10,5 @@ The playbooks contained within this repository are examples only.  They are inte
 
 These playbooks execute a set of show commands on the designated group and save the output to a file.
 
-
+Note:  This is a working repository and so some playbooks may still be a work in progress.
 
